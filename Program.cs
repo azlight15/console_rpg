@@ -4,24 +4,15 @@ namespace Console_RPG;
 
 public static class Program
 {
-    public static void Main()
+    private static bool _running = true;
+    
+    private static void Main()
     {
         Menu();
         GameConfirmed();
-        while (PlayerStatistics.Hp > 0)
+        while (_running)
         {
-            MonsterStatistics monster = CreateMonster();
-            Battle.Start(monster);
-            if (PlayerStatistics.Hp <= 0)
-            {
-                break;
-            }
-
-            Console.WriteLine("是否继续刷怪？（Y/N）");
-            if (Console.ReadKey().KeyChar != 'Y' || Console.ReadKey().KeyChar != 'y')
-            {
-                break;
-            }
+            OptionsMenu();
         }
     }
     
@@ -59,41 +50,66 @@ public static class Program
         Console.WriteLine("按下任意键开始游戏");
         Console.ReadKey();
     }
-    
-    //随机抽取怪物
-    private static MonsterStatistics CreateMonster()
-    {
-        Random random = new Random();
-        int type = random.Next(1, 4);//1~3
-        MonsterStatistics monster = new MonsterStatistics();
 
-        switch (type)
+    //选择页面
+    private static void OptionsMenu()
+    {
+        Console.WriteLine("=========================");
+        Console.WriteLine("请选择选项：");
+        Console.WriteLine("1.开始对战");
+        Console.WriteLine("2.升级");
+        Console.WriteLine("3.治疗");
+        Console.WriteLine("4.查看状态");
+        Console.WriteLine("5.退出游戏");
+        Console.WriteLine("==========================");
+        Console.WriteLine("请选择选项");
+        int options=Convert.ToInt32(Console.ReadLine());
+        switch (options)
         {
             case 1:
-                monster.Name = "史莱姆";
-                monster.Level = 1;
-                monster.Hp = 50;
-                monster.MaxHp = 50;
-                monster.Attack = 8;
-                monster.CriticalHit = 8 * 1.5;
+                while (PlayerStatistics.Hp > 0)
+                {
+                    var monster = MonsterFactory.Monster;
+                    Battle.Start(monster);
+                    if (PlayerStatistics.Hp <= 0)
+                    {
+                        Console.WriteLine("你的HP不足，帮你回到选择页面");
+                        OptionsMenu();
+                    }
+
+                    Console.WriteLine("是否继续刷怪？（Y/N）");
+                    if (Console.ReadKey().KeyChar != 'Y' || Console.ReadKey().KeyChar != 'y')
+                    {
+                        OptionsMenu();
+                    }
+                }
                 break;
             case 2:
-                monster.Name = "哥布林";
-                monster.Level = 3;
-                monster.Hp = 80;
-                monster.MaxHp = 80;
-                monster.Attack = 12;
-                monster.CriticalHit = 12 * 1.5;
                 break;
             case 3:
-                monster.Name = "骷髅兵";
-                monster.Level = 5;
-                monster.Hp = 100;
-                monster.MaxHp = 100;
-                monster.Attack = 15;
-                monster.CriticalHit = 15 * 1.5;
+                PlayerStatistics.Hp += PlayerStatistics.Treatment;
+                if (PlayerStatistics.Hp > PlayerStatistics.MaxHp)
+                {
+                    PlayerStatistics.Hp = PlayerStatistics.MaxHp;
+                }
+                Console.WriteLine($"你治疗了自己，恢复 {PlayerStatistics.Treatment} HP");
+                
+                OptionsMenu();
+                break;
+            case 4:
+                Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
+                Console.WriteLine($"等级：{PlayerStatistics.Level}");
+                Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
+                Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
+                Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
+                
+                OptionsMenu();
+                break;
+            case 5:
+                Console.WriteLine("欢迎再次玩Console RPG，谢谢");
+                Console.WriteLine("那么下次再见，勇者！");
+                _running = false;
                 break;
         }
-        return monster;
     }
 }
