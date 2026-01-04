@@ -4,9 +4,32 @@ using System;
 
 namespace Console_RPG;
 
-public class Battle
+public static class Battle
 {
-    public static void Start(MonsterStatistics monster)
+    //开始对战与是否继续对战
+    public static void StartBattle()
+    {
+        while (PlayerStatistics.Hp > 0)
+        {
+            var monster = MonsterFactory.Monster;
+            Battle.Start(monster);
+            if (PlayerStatistics.Hp <= 0)
+            {
+                Console.WriteLine("你的HP不足，帮你回到选择页面");
+                Program.Loading();
+            }
+
+            Console.WriteLine("是否继续刷怪？（Y/N）");
+            char choice = Console.ReadKey().KeyChar;
+            if (choice != 'Y' && choice != 'y')
+            {
+                Program.Loading();
+            }
+        }
+    }
+    
+    //正式对战，采取一换一战术
+    private static void Start(MonsterStatistics monster)
     {
         Console.Clear();
         Console.WriteLine($"你遇到了{monster.Name}");

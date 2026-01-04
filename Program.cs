@@ -55,6 +55,7 @@ public static class Program
     private static void OptionsMenu()
     {
         Console.WriteLine("=========================");
+        Console.WriteLine("Console RPG");
         Console.WriteLine("请选择选项：");
         Console.WriteLine("1.开始对战");
         Console.WriteLine("2.升级");
@@ -63,47 +64,20 @@ public static class Program
         Console.WriteLine("5.退出游戏");
         Console.WriteLine("==========================");
         Console.WriteLine("请选择选项");
-        int options=Convert.ToInt32(Console.ReadLine());
+        int options = Convert.ToInt32(Console.ReadLine());
         switch (options)
         {
             case 1:
-                while (PlayerStatistics.Hp > 0)
-                {
-                    var monster = MonsterFactory.Monster;
-                    Battle.Start(monster);
-                    if (PlayerStatistics.Hp <= 0)
-                    {
-                        Console.WriteLine("你的HP不足，帮你回到选择页面");
-                        OptionsMenu();
-                    }
-
-                    Console.WriteLine("是否继续刷怪？（Y/N）");
-                    if (Console.ReadKey().KeyChar != 'Y' || Console.ReadKey().KeyChar != 'y')
-                    {
-                        OptionsMenu();
-                    }
-                }
+                Battle.StartBattle();
                 break;
             case 2:
+                Loading();
                 break;
             case 3:
-                PlayerStatistics.Hp += PlayerStatistics.Treatment;
-                if (PlayerStatistics.Hp > PlayerStatistics.MaxHp)
-                {
-                    PlayerStatistics.Hp = PlayerStatistics.MaxHp;
-                }
-                Console.WriteLine($"你治疗了自己，恢复 {PlayerStatistics.Treatment} HP");
-                
-                OptionsMenu();
+                Heal();
                 break;
             case 4:
-                Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
-                Console.WriteLine($"等级：{PlayerStatistics.Level}");
-                Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
-                Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
-                Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
-                
-                OptionsMenu();
+                ShowStatus();
                 break;
             case 5:
                 Console.WriteLine("欢迎再次玩Console RPG，谢谢");
@@ -111,5 +85,37 @@ public static class Program
                 _running = false;
                 break;
         }
+    }
+
+    //治疗
+    private static void Heal()
+    {
+        PlayerStatistics.Hp += PlayerStatistics.Treatment;
+        if (PlayerStatistics.Hp > PlayerStatistics.MaxHp)
+        {
+            PlayerStatistics.Hp = PlayerStatistics.MaxHp;
+        }
+        Console.WriteLine($"你治疗了自己，恢复 {PlayerStatistics.Treatment} HP");
+
+        Loading();
+    }
+    
+    //查看状态
+    private static void ShowStatus()
+    {
+        Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
+        Console.WriteLine($"等级：{PlayerStatistics.Level}");
+        Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
+        Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
+        Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
+                
+        Loading();
+    }
+
+    //等待
+    public static void Loading()
+    {
+        Console.WriteLine("按下任意键回到选择页面");
+        Console.ReadKey();
     }
 }
