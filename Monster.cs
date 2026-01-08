@@ -9,5 +9,5 @@ public class MonsterStatistics
     public int MaxHp;//最高血量
     public int Attack;//攻击值
     public int CriticalHit; //暴击值
-    public int ExpReward = 100;//经验值
+    public int ExpReward;//经验值
 }

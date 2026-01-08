@@ -20,13 +20,11 @@ public static class UpLevel
         PlayerStatistics.Exp-= PlayerStatistics.ExpToNextLevel;
         PlayerStatistics.Level++;
 
-        PlayerStatistics.MaxHp += 20;
-        PlayerStatistics.Attack += 5;
-        PlayerStatistics.CriticalHit += 1;
-
-        PlayerStatistics.Hp = PlayerStatistics.MaxHp;
-
-        PlayerStatistics.ExpToNextLevel += 50;
+        PlayerStatistics.MaxHp += 20;//最大生命++
+        PlayerStatistics.Attack += 5;//攻击值++
+        PlayerStatistics.CriticalHit += 1;//暴击++
+        PlayerStatistics.Hp = PlayerStatistics.MaxHp;//HP回满
+        PlayerStatistics.ExpToNextLevel += 50;//下一级需要的经验值
 
         Console.WriteLine("升级了！");
         Console.WriteLine($"当前等级：{PlayerStatistics.Level}");

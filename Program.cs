@@ -68,10 +68,10 @@ public static class Program
         switch (options)
         {
             case 1:
-                Battle.StartBattle();
+                Battle.StartBattle();//指向Battle.cs文件
                 break;
             case 2:
-                UpLevel.GainExp(100);
+                UpLevel.GainExp(100);//指向LevelUp.cs文件
                 break;
             case 3:
                 Heal();
@@ -87,7 +87,7 @@ public static class Program
         }
     }
 
-    //治疗
+    //治疗（第3选项）
     private static void Heal()
     {
         PlayerStatistics.Hp += PlayerStatistics.Treatment;
@@ -100,11 +100,12 @@ public static class Program
         Loading();
     }
     
-    //查看状态
+    //查看状态（第4选项）
     private static void ShowStatus()
     {
         Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
         Console.WriteLine($"等级：{PlayerStatistics.Level}");
+        Console.WriteLine($"Exp:{PlayerStatistics.Exp}");
         Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
         Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
         Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
