@@ -71,7 +71,7 @@ public static class Program
                 Battle.StartBattle();
                 break;
             case 2:
-                Loading();
+                UpLevel.GainExp(100);
                 break;
             case 3:
                 Heal();

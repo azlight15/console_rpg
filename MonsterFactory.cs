@@ -21,7 +21,7 @@ public static class MonsterFactory
                 monster.Hp = 50;
                 monster.MaxHp = 50;
                 monster.Attack = 8;
-                monster.CriticalHit = 8 * 1.5;
+                monster.CriticalHit = 8 * 2;
                 break;
             case 2:
                 monster.Name = "哥布林";
@@ -29,7 +29,7 @@ public static class MonsterFactory
                 monster.Hp = 80;
                 monster.MaxHp = 80;
                 monster.Attack = 12;
-                monster.CriticalHit = 12 * 1.5;
+                monster.CriticalHit = 12 * 2;
                 break;
             case 3:
                 monster.Name = "骷髅兵";
@@ -37,7 +37,7 @@ public static class MonsterFactory
                 monster.Hp = 100;
                 monster.MaxHp = 100;
                 monster.Attack = 15;
-                monster.CriticalHit = 15 * 1.5;
+                monster.CriticalHit = 15 * 2;
                 break;
         }
         return monster;

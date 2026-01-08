@@ -12,7 +12,7 @@ public static class Battle
         while (PlayerStatistics.Hp > 0)
         {
             var monster = MonsterFactory.Monster;
-            Battle.Start(monster);
+            Start(monster);
             if (PlayerStatistics.Hp <= 0)
             {
                 Console.WriteLine("你的HP不足，帮你回到选择页面");
@@ -96,6 +96,7 @@ public static class Battle
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"你击败了{monster.Name}！");
                 Console.ResetColor();
+                UpLevel.GainExp(monster.ExpReward);
                 break;
             }
             
