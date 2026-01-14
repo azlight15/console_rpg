@@ -27,7 +27,7 @@ public static class UpLevel
             PlayerStatistics.Attack += 5;//攻击值++
             PlayerStatistics.Hp = PlayerStatistics.MaxHp;//HP回满
         
-
+            Console.WriteLine("  ");
             Console.WriteLine("升级了！");
             Console.WriteLine($"当前等级：{PlayerStatistics.Level}");
             Console.WriteLine("最大HP +20\n攻击值 +5\nHP已回满");

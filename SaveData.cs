@@ -41,6 +41,7 @@ public static class SaveManager
         
         File.WriteAllText(SaveFile, json);
         Console.WriteLine("游戏已保存");
+        Program.Loading();
     }
 
     public static void Load()
@@ -62,5 +63,6 @@ public static class SaveManager
         PlayerStatistics.Treatment = data.Treatment;
 
         Console.WriteLine("存档读取成功！");
+        Program.Loading();
     }
 }

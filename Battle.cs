@@ -27,7 +27,7 @@ public static class Battle
             char choice = Console.ReadKey().KeyChar;
             if (choice != 'Y' && choice != 'y')//选择n或其他按键直接回到选择页面
             {
-                Program.Loading();
+                break;
             }
         }
     }
