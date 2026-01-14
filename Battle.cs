@@ -41,8 +41,7 @@ public static class Battle
         Console.WriteLine($"等级：{monster.Level}");
         Console.WriteLine($"血量{monster.Hp}/{monster.MaxHp}");
         Console.WriteLine($"攻击力{monster.Attack}");
-        Console.WriteLine($"暴击：{monster.CriticalHit}");
-        Console.WriteLine($"击败后获得经验值：{monster.ExpReward}");
+        Console.WriteLine($"预计获得经验值：{monster.ExpReward}");
         Console.WriteLine("按任意键进入战斗！");
         Console.ReadKey();
         bool monsterCanBattle = true;
@@ -52,15 +51,13 @@ public static class Battle
             Console.WriteLine($"{PlayerStatistics.Name}");
             Console.WriteLine($"{PlayerStatistics.Level}");
             Console.WriteLine($"{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
-            Console.WriteLine($"{PlayerStatistics.CriticalHit}");
             Console.WriteLine("=======================");
             Console.WriteLine($"{monster.Name}");
             Console.WriteLine($"{monster.Level}");
             Console.WriteLine($"{monster.Hp}/{monster.MaxHp}");
-            Console.WriteLine($"{monster.CriticalHit}");
             Console.WriteLine("=======================");
             Console.WriteLine("注：只能选对应按键，否则直接退出战斗！");
-            Console.WriteLine("普通攻击（a/A） | 暴击（s/S） | 治疗（d/D） | 退出（f/F）");
+            Console.WriteLine("普通攻击（a/A）| 治疗（d/D）| 退出（f/F）");
             char battleOption = Console.ReadKey().KeyChar; //选择按键
             switch (battleOption)
             {
@@ -72,9 +69,7 @@ public static class Battle
                     break;
                 case 'S':
                 case 's':
-                    //玩家进行暴击
-                    monster.Hp -= PlayerStatistics.CriticalHit;
-                    Console.WriteLine($"你攻击了{monster.Name}，造成{PlayerStatistics.CriticalHit}点伤害！");
+                    
                     break;
                 case 'D':
                 case 'd':
@@ -111,9 +106,16 @@ public static class Battle
             }
             
             //怪物反击
-            if (monsterCanBattle || monster.Hp > 0)
+            if (monsterCanBattle && monster.Hp > 0)
             {
-                PlayerStatistics.Hp -= monster.Attack;
+                //怪物攻击-玩家等级=实际伤害，用等级作为隐式防御
+                double damage = monster.Attack - PlayerStatistics.Level;
+                if (damage < 1)
+                {
+                    damage = 1;
+                }
+                PlayerStatistics.Hp -= damage;
+                
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{monster.Name} 反击你，造成 {monster.Attack} 点伤害");
                 Console.ResetColor();
@@ -124,6 +126,8 @@ public static class Battle
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("\n你倒下了……");
                 Console.ResetColor();
+                PlayerStatistics.Hp = PlayerStatistics.MaxHp;
+                PlayerStatistics.Exp -= PlayerStatistics.Exp * 0.1;
                 break;
             }
             

@@ -11,38 +11,47 @@ public static class MonsterFactory
     {
         Random random = new Random();
         int type = random.Next(1, 4);//1~3
+        bool isElite = Random.Shared.Next(100) < 10;
+        int playerLevel = PlayerStatistics.Level;//玩家预设等级导入到playerLevel变量
+        
         MonsterStatistics monster = new MonsterStatistics();
 
         switch (type)
         {
             case 1:
                 monster.Name = "史莱姆";
-                monster.Level = 1;
-                monster.Hp = 50;
-                monster.MaxHp = 50;
-                monster.Attack = 8;
-                monster.CriticalHit = 8 * 2;
-                monster.ExpReward = 50;
+                monster.Level = Math.Max(1, playerLevel - 1);
+                monster.MaxHp = 30 + monster.Level * 4;
+                monster.Attack = 5 + monster.Level * 1;
+                monster.ExpReward = 30 + monster.Level * 10;
                 break;
             case 2:
                 monster.Name = "哥布林";
-                monster.Level = 3;
-                monster.Hp = 80;
-                monster.MaxHp = 80;
-                monster.Attack = 12;
-                monster.CriticalHit = 12 * 2;
-                monster.ExpReward = 80;
+                monster.Level = playerLevel;
+                monster.MaxHp = 50 + monster.Level * 5;
+                monster.Attack = 8 + monster.Level * 2;
+                monster.ExpReward = 50 + monster.Level * 15;
                 break;
             case 3:
                 monster.Name = "骷髅兵";
-                monster.Level = 5;
-                monster.Hp = 100;
-                monster.MaxHp = 100;
-                monster.Attack = 15;
-                monster.CriticalHit = 15 * 2;
-                monster.ExpReward = 100;
+                monster.Level = playerLevel + 1;
+                monster.MaxHp = 70 + monster.Level * 6;
+                monster.Attack = 10 + monster.Level * 3;
+                monster.ExpReward = 70 + monster.Level * 20;
                 break;
         }
+
+        if (isElite)
+        {
+            monster.Name = "[精英]" + monster.Name;
+            monster.Level = playerLevel + 3;
+            monster.MaxHp *= 1.5;
+            monster.Hp = monster.MaxHp;
+            monster.Attack *= 1.5;
+            monster.ExpReward *= 1.5;
+        }
+
+        monster.Hp = monster.MaxHp;
         return monster;
     }
 }

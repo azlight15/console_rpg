@@ -44,7 +44,6 @@ public static class Program
         Console.WriteLine($"等级：{PlayerStatistics.Level}");
         Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
         Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
-        Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
         Console.WriteLine($"那么祝你玩的开心，{PlayerStatistics.Name}勇者！");
         Console.WriteLine("=================================");
         Console.WriteLine("按下任意键开始游戏");
@@ -61,9 +60,11 @@ public static class Program
         Console.WriteLine("2.升级");
         Console.WriteLine("3.治疗");
         Console.WriteLine("4.查看状态");
-        Console.WriteLine("5.退出游戏");
+        Console.WriteLine("5.存档");
+        Console.WriteLine("6.读档");
+        Console.WriteLine("7.退出游戏");
         Console.WriteLine("==========================");
-        Console.WriteLine("请选择选项");
+        Console.Write("请选择选项：");
         int options = Convert.ToInt32(Console.ReadLine());
         switch (options)
         {
@@ -80,9 +81,22 @@ public static class Program
                 ShowStatus();
                 break;
             case 5:
+                SaveManager.Save();
+                break;
+            case 6:
+                SaveManager.Load();
+                break;
+            case 7:
                 Console.WriteLine("欢迎再次玩Console RPG，谢谢");
                 Console.WriteLine("那么下次再见，勇者！");
                 _running = false;
+                break;
+            default:
+                while (options > 7 || options < 0)
+                {
+                    Console.Write("\n输入错误，请重新输入：");
+                    options = Convert.ToInt32(Console.ReadLine());
+                }
                 break;
         }
     }
@@ -105,10 +119,9 @@ public static class Program
     {
         Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
         Console.WriteLine($"等级：{PlayerStatistics.Level}");
-        Console.WriteLine($"Exp:{PlayerStatistics.Exp}");
+        Console.WriteLine($"Exp:{PlayerStatistics.Exp}/{PlayerStatistics.ExpToNextLevel}");
         Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
         Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
-        Console.WriteLine($"暴击值：{PlayerStatistics.CriticalHit}");
                 
         Loading();
     }
