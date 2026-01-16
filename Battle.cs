@@ -67,10 +67,6 @@ public static class Battle
                     monster.Hp -= PlayerStatistics.Attack;
                     Console.WriteLine($"你攻击了{monster.Name}，造成{PlayerStatistics.Attack}点伤害！");
                     break;
-                case 'S':
-                case 's':
-                    
-                    break;
                 case 'D':
                 case 'd':
                     //治疗
