@@ -4,11 +4,11 @@ namespace Console_RPG;
 
 public static class Program
 {
-    private static bool _running = true;
+    private static bool _running = true;//游戏运行状态
     
     private static void Main()
     {
-        Menu();
+        StartMenu();
         GameConfirmed();
         while (_running)
         {
@@ -16,8 +16,8 @@ public static class Program
         }
     }
     
-    //主菜单
-    private static void Menu()
+    //开始菜单
+    private static void StartMenu()
     {
         Console.Clear();
         Console.WriteLine("===== 欢迎来玩Console RPG游戏 =====");
