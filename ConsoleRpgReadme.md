@@ -18,7 +18,7 @@
 
 1.下载这个[.NET](https://dotnet.microsoft.com/zh-cn/download)玩意
 
-例图：(![](photo/.NET.png)
+例图：(![](photo/NET.png)
 
 然后安装它
 
