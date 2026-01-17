@@ -72,13 +72,25 @@ public static class Program
 
 ***
 
-### 4.`Player.cs`和`Monster.cs`
+### 4.`Heal.cs`
+
+这个是**治疗功能**，具体工作流程自己去看
+
+***
+
+### 5.`ShowStatus.cs`
+
+这个是**显示玩家当前状态**的，懂得都懂，不赘述
+
+***
+
+### 6.`Player.cs`和`Monster.cs`
 
 这两个是**玩家**和**怪物**的数值面板和基础信息，不多说
 
 ***
 
-### 5.`MonsterFactory.cs`
+### 7.`MonsterFactory.cs`
 
 这是“怪物工厂”，是怪物的预设
 
@@ -88,7 +100,7 @@ public static class Program
 
 ***
 
-### 6.`SaveData.cs`
+### 8.`SaveData.cs`
 
 这个是**存档系统**
 
