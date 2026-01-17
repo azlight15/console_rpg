@@ -14,7 +14,7 @@
 
 现在有以下系统：
 
-1.`Program.cs`
+### 1.`Program.cs`
 
 这是主程序文件，里面有：
 主函数——`Program.Main`、
@@ -40,7 +40,9 @@ public static class Program
     }
 ```
 
-2.`Battle.cs`
+***
+
+### 2.`Battle.cs`
 
 这是对战系统
 
@@ -56,7 +58,9 @@ public static class Program
 
 填`y`（大小写都可以）继续，否则回到选择页面
 
-3.`LevelUp.cs`
+***
+
+### 3.`LevelUp.cs`
 
 这是升级系统，里面有获得经验（LevelUp部分）和升级方法
 
@@ -66,4 +70,36 @@ public static class Program
 
 ~~总感觉像是上了双重保险~~
 
-4.
+***
+
+### 4.`Player.cs`和`Monster.cs`
+
+这两个是**玩家**和**怪物**的数值面板和基础信息，不多说
+
+***
+
+### 5.`MonsterFactory.cs`
+
+这是“怪物工厂”，是怪物的预设
+
+怪物的数值会跟玩家的等级的增长而增长
+
+该文件搭配`Battle.cs`
+
+***
+
+### 6.`SaveData.cs`
+
+这个是**存档系统**
+
+工作流程：
+
+* 预先建好`Savedata`类
+* 把数据存到json文件（存档文件）
+* 随时可以存储或读取存档
+
+***
+
+## 之后要做什么？
+
+想做其他项目就做其他项目
