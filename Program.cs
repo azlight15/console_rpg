@@ -102,10 +102,10 @@ public static class Program
                 UpLevel.GainExp(100);    // 测试用升级
                 break;
             case 3:
-                Heal();                 // 治疗玩家
+                Heal._Heal();              // 治疗玩家
                 break;
             case 4:
-                ShowStatus();           // 显示玩家状态
+                ShowStatus._ShowStatus();  // 显示玩家状态
                 break;
             case 5:
                 SaveManager.Save();     // 保存游戏
@@ -128,41 +128,6 @@ public static class Program
                 }
                 break;
         }
-    }
-
-    /*
-        治疗功能（菜单第3项）
-        按照 Treatment 数值恢复玩家血量
-    */
-    private static void Heal()
-    {
-        PlayerStatistics.Hp += PlayerStatistics.Treatment;
-
-        // 防止血量超过最大值
-        if (PlayerStatistics.Hp > PlayerStatistics.MaxHp)
-        {
-            PlayerStatistics.Hp = PlayerStatistics.MaxHp;
-        }
-
-        Console.Clear();
-        Console.WriteLine($"你治疗了自己，恢复 {PlayerStatistics.Treatment} HP");
-
-        Loading();
-    }
-    
-    /*
-        显示玩家当前状态（菜单第4项）
-    */
-    private static void ShowStatus()
-    {
-        Console.Clear();
-        Console.WriteLine($"你的名字是：{PlayerStatistics.Name}");
-        Console.WriteLine($"等级：{PlayerStatistics.Level}");
-        Console.WriteLine($"Exp:{PlayerStatistics.Exp}/{PlayerStatistics.ExpToNextLevel}");
-        Console.WriteLine($"HP：{PlayerStatistics.Hp}/{PlayerStatistics.MaxHp}");
-        Console.WriteLine($"攻击值：{PlayerStatistics.Attack}");
-                
-        Loading();
     }
 
     /*
