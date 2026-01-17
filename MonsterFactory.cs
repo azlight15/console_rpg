@@ -26,10 +26,8 @@ public static class MonsterFactory
     */
     private static MonsterStatistics CreateMonster()
     {
-        Random random = new Random();
-
         // 随机怪物类型（1~3）
-        int type = random.Next(1, 4);
+        int type = Random.Shared.Next(1, 4);
 
         // 是否生成精英怪（10%概率）
         bool isElite = Random.Shared.Next(100) < 10;
