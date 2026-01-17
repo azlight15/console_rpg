@@ -2,21 +2,35 @@ using System;
 
 namespace Console_RPG;
 
+/*
+    Program 是游戏的入口类。
+    负责初始化游戏、显示菜单，并控制整个游戏主循环。
+*/
 public static class Program
 {
-    private static bool _running = true;//游戏运行状态
+    // 控制游戏是否继续运行
+    private static bool _running = true;
     
+    /*
+        游戏入口方法
+        初始化菜单并进入主循环
+    */
     private static void Main()
     {
-        StartMenu();
-        GameConfirmed();
+        StartMenu();     // 输入玩家名字
+        GameConfirmed(); // 显示初始状态确认
+
+        // 游戏主循环
         while (_running)
         {
             OptionsMenu();
         }
     }
     
-    //开始菜单
+    /*
+        开始菜单
+        负责获取玩家名字并做基本校验
+    */
     private static void StartMenu()
     {
         Console.Clear();
@@ -25,7 +39,10 @@ public static class Program
         Console.WriteLine("那么接下来请好好享受游戏吧！");
         Console.WriteLine("=================================");
         Console.Write("请输入你的名字（取了名字后不能更改！）：");
+
         PlayerStatistics.Name = Console.ReadLine()!;
+
+        // 防止输入空字符串或空格
         while (string.IsNullOrWhiteSpace(PlayerStatistics.Name))
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -35,7 +52,10 @@ public static class Program
         }
     }
 
-    //游戏确认
+    /*
+        游戏开始前的确认页面
+        展示玩家初始属性
+    */
     private static void GameConfirmed()
     {
         Console.Clear();
@@ -51,7 +71,10 @@ public static class Program
         Console.ReadKey();
     }
 
-    //选择页面
+    /*
+        主菜单页面
+        根据玩家输入分发到不同功能模块
+    */
     private static void OptionsMenu()
     {
         Console.Clear();
@@ -67,35 +90,38 @@ public static class Program
         Console.WriteLine("7.退出游戏");
         Console.WriteLine("==========================");
         Console.Write("请选择选项：");
+
         int options = Convert.ToInt32(Console.ReadLine());
+
         switch (options)
         {
             case 1:
-                Battle.StartBattle();//指向Battle.cs文件
+                Battle.StartBattle();   // 进入战斗模块
                 break;
             case 2:
-                UpLevel.GainExp(100);//指向LevelUp.cs文件
+                UpLevel.GainExp(100);    // 测试用升级
                 break;
             case 3:
-                Heal();
+                Heal();                 // 治疗玩家
                 break;
             case 4:
-                ShowStatus();
+                ShowStatus();           // 显示玩家状态
                 break;
             case 5:
-                SaveManager.Save();
+                SaveManager.Save();     // 保存游戏
                 break;
             case 6:
-                SaveManager.Load();
+                SaveManager.Load();     // 读取存档
                 break;
             case 7:
                 Console.Clear();
                 Console.WriteLine("欢迎再次玩Console RPG，谢谢");
                 Console.WriteLine("那么下次再见，勇者！");
-                _running = false;
+                _running = false;       // 结束主循环
                 break;
             default:
-                while (options > 7 || options < 0)
+                // 输入非法时重新输入
+                while (options > 7 || options < 1)
                 {
                     Console.Write("\n输入错误，请重新输入：");
                     options = Convert.ToInt32(Console.ReadLine());
@@ -104,21 +130,29 @@ public static class Program
         }
     }
 
-    //治疗（第3选项）
+    /*
+        治疗功能（菜单第3项）
+        按照 Treatment 数值恢复玩家血量
+    */
     private static void Heal()
     {
         PlayerStatistics.Hp += PlayerStatistics.Treatment;
+
+        // 防止血量超过最大值
         if (PlayerStatistics.Hp > PlayerStatistics.MaxHp)
         {
             PlayerStatistics.Hp = PlayerStatistics.MaxHp;
         }
+
         Console.Clear();
         Console.WriteLine($"你治疗了自己，恢复 {PlayerStatistics.Treatment} HP");
 
         Loading();
     }
     
-    //查看状态（第4选项）
+    /*
+        显示玩家当前状态（菜单第4项）
+    */
     private static void ShowStatus()
     {
         Console.Clear();
@@ -131,7 +165,9 @@ public static class Program
         Loading();
     }
 
-    //等待
+    /*
+        等待用户输入后返回主菜单
+    */
     public static void Loading()
     {
         Console.WriteLine("按下任意键回到选择页面");
