@@ -110,6 +110,8 @@ public static class Program
 * 把数据存到json文件（存档文件）
 * 随时可以存储或读取存档
 
+存档文件一般在`console_rpg-main/bin/Debug/net10.0/save.json`
+
 ***
 
 ## 之后要做什么？
