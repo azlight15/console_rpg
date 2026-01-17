@@ -42,6 +42,7 @@ public static class Battle
             // 非 Y 则退出刷怪循环
             if (choice != 'Y' && choice != 'y')
             {
+                Program.Loading();
                 break;
             }
         }
